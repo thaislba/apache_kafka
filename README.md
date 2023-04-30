@@ -1,6 +1,6 @@
 # apache_kafka
 
-This repository is an exercise based on the DEMOS proposed in the course 
+This repository is an exercise based on the DEMOS proposed in the course https://app.pluralsight.com/library/courses/apache-kafka-getting-started/table-of-contents
 
 ### Pre-requisites:
 
