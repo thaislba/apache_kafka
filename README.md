@@ -1,15 +1,14 @@
 # apache_kafka
 
-This repository is an exercise based on the DEMOS proposed in the course https://app.pluralsight.com/library/courses/apache-kafka-getting-started/table-of-contents. Everything will be done using the default configurations.
+This repository is an exercise based on the DEMOS proposed in the course https://app.pluralsight.com/library/courses/apache-kafka-getting-started/table-of-contents. Everything will be done using the default configurations locally.
 
-### Pre-requisites:
+## Pre-requisites:
 - Linux
 - Java 8 JDK
 - Scala 2.11.x
 
 
-### Usage:
-
+## Running one broker
 **1. start zookeeper with default configuration**
 
 Run:
@@ -48,11 +47,10 @@ Check if everything went well:
 ````
 cd /tmp/kafka-logs/
 ls
-
 ````
 
 **4. produce and consume messages**
-To strt producing messages it is important to call a shell responsible for that: 
+To start producing messages it is important to call a shell responsible for that: 
 ````
 bin/kafka-console-producer.sh --broker-list localhost:9092 --topic my_topic
 ````
@@ -61,6 +59,43 @@ an input terminal will be available and everything typed followed by an enter wi
 To read the messages, run:
 ````
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic my_topic
-
 ````
 If you use multiple terminals, you're gonna be able to see in the consumer the new messages types in the producer.
+
+## Running multiple brokers in a single machine
+
+Check the official documentation: https://kafka.apache.org/quickstart#quickstart_multibroker
+
+Navigate to the folder config (`cd config/`) and examine the files. You'll notice there's a file called `server.properties` which is a configuration file necessary for specifying different settings and configurations for a Kafka broker (`cat server.properties`). 
+To create multiple brokers it's necessary to replicate that file such as: `server-0.properties`, `server-1.properties`, `server-3.properties` and so on.
+
+Attention: remember you need to have an instance of zookeeper running for each broker. 
+
+
+**1. Initiate the zookeeper's instances**
+Make a copy of the file zookeeper.properties and update the port. You must set up one port for each broker. Then in separate terminals run each zookeeper instance with the following command (pay attention to the name):
+
+````
+bin/zookeeper-server-start.sh config/zookeeper-X.properties
+````
+
+**2. create the configuration files for each one of the three brokers**
+````
+cp server.properties server-0.properties
+cp server.properties server-1.properties
+cp server.properties server-2.properties
+````
+
+In the config files change the following lines according to the broker: 
+
+- Set a unique id for each broker by changing the line 24 `broker.id=0`.
+- Set a unique name for the log files by changing the line 62 `log.dirs=/tmp/kafka-logs-0`.
+- Set a unique port for the connection by changing the line 125 `zookeeper.connect=localhost:218`. Consider the ports set in the previews step. 
+
+
+**3. Initiate the brokers**
+
+In different terminals run the following command for each one of the config files created in the previews step (pay attention to the name).
+````
+bin/kafka-server-start.sh config/server-X.properties
+````
