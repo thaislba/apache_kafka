@@ -73,29 +73,44 @@ Attention: remember you need to have an instance of zookeeper running for each b
 
 
 **1. Initiate the zookeeper's instances**
-Make a copy of the file zookeeper.properties and update the port. You must set up one port for each broker. Then in separate terminals run each zookeeper instance with the following command (pay attention to the name):
+(not sure if it's really necessary to make a copy, still figuring it out) 
+Make a copy of the file zookeeper.properties and update the port. You must set up one port for each broker and a different `dataDir` for them. Then in separate terminals run each zookeeper instance with the following command (pay attention to the name):
 
 ````
-bin/zookeeper-server-start.sh config/zookeeper-X.properties
+bin/zookeeper-server-start.sh config/zookeeper_0.properties
+````
+
+````
+bin/zookeeper-server-start.sh config/zookeeper_1.properties
+````
+
+````
+bin/zookeeper-server-start.sh config/zookeeper_2.properties
 ````
 
 **2. create the configuration files for each one of the three brokers**
 ````
-cp server.properties server-0.properties
-cp server.properties server-1.properties
-cp server.properties server-2.properties
+cp server.properties server_0.properties
+cp server.properties server_1.properties
+cp server.properties server_2.properties
 ````
 
 In the config files change the following lines according to the broker: 
 
 - Set a unique id for each broker by changing the line 24 `broker.id=0`.
-- Set a unique name for the log files by changing the line 62 `log.dirs=/tmp/kafka-logs-0`.
-- Set a unique port for the connection by changing the line 125 `zookeeper.connect=localhost:218`. Consider the ports set in the previews step. 
-
+- Set a unique port by changing the line 34 `listeners=PLAINTEXT://:9092`
+- Set a unique name for the log files by changing the line 62 `log.dirs=/tmp/kafka_0-logs`.
+- Set a unique port for the connection by changing the line 125 `zookeeper.connect=localhost:2181`. Consider the ports set in the previews step. 
 
 **3. Initiate the brokers**
 
 In different terminals run the following command for each one of the config files created in the previews step (pay attention to the name).
 ````
-bin/kafka-server-start.sh config/server-X.properties
+bin/kafka-server-start.sh config/server_0.properties
+````
+````
+bin/kafka-server-start.sh config/server_1.properties
+````
+````
+bin/kafka-server-start.sh config/server_2.properties
 ````
