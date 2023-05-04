@@ -40,7 +40,11 @@ bin/kafka-topics.sh
 to get information about the parameters that has to be passesand then create your topic following the example:
 
 ````
-bin/kafka-topics.sh --create --topic my_topic --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+bin/kafka-topics.sh 
+--create --topic my_topic 
+--bootstrap-server localhost:9092 
+--replication-factor 1 
+--partitions 1
 ````
 Check if everything went well:
 
@@ -113,4 +117,13 @@ bin/kafka-server-start.sh config/server_1.properties
 ````
 ````
 bin/kafka-server-start.sh config/server_2.properties
+````
+**4. Create a topic**
+Run the following command:
+````
+bin/kafka-topics.sh 
+--create --topic replicated_topic 
+--bootstrap-server localhost:9092 
+--replication-factor 3 
+--partitions 1
 ````
