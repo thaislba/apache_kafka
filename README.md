@@ -1,6 +1,6 @@
 # apache_kafka
 
-This repository is an exercise based on the DEMOS proposed in the course https://app.pluralsight.com/library/courses/apache-kafka-getting-started/table-of-contents. The goal is to get acquainted with Kafka's configuration files, it's shell scripts and be able to run a broker locally. In the future there will be other directories in this repo with the intention of creating a better environment for creating and consuming messages. 
+This repository is an exercise based on the DEMOS proposed in the course https://app.pluralsight.com/library/courses/apache-kafka-getting-started/table-of-contents. The goal is to get acquainted with Kafka's configuration files, its shell scripts and be able to run a broker locally. In the future there will be other directories in this repo with the intention of creating a better environment for creating and consuming messages. 
 
 ## Pre-requisites:
 - Linux
